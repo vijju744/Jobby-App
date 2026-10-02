@@ -26,7 +26,9 @@ class ProfileDetails extends Component {
     })
 
     const jwtToken = Cookies.get('jwt_token')
+
     const url = 'https://apis.ccbp.in/profile'
+
     const options = {
       headers: {
         Authorization: `Bearer ${jwtToken}`,
@@ -40,7 +42,7 @@ class ProfileDetails extends Component {
       const data = await response.json()
 
       const profileData = {
-        name: 'Vijaya Gangadhar',
+        name: data.profile_details.name,
         profileImageUrl: data.profile_details.profile_image_url,
         shortBio: data.profile_details.short_bio,
       }
@@ -72,7 +74,10 @@ class ProfileDetails extends Component {
   }
 
   renderLoadingView = () => (
-    <div className="profile-loader-container" data-testid="loader">
+    <div
+      className="profile-loader-container"
+      data-testid="loader"
+    >
       <Loader
         type="ThreeDots"
         color="#ffffff"
