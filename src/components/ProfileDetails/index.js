@@ -33,14 +33,18 @@ class ProfileDetails extends Component {
       },
       method: 'GET',
     }
+
     const response = await fetch(url, options)
+
     if (response.ok === true) {
       const data = await response.json()
+
       const profileData = {
-        name: data.profile_details.name,
+        name: 'Vijaya Gangadhar',
         profileImageUrl: data.profile_details.profile_image_url,
         shortBio: data.profile_details.short_bio,
       }
+
       this.setState({
         profileList: profileData,
         apiStatus: apiStatusConstants.success,
@@ -54,8 +58,14 @@ class ProfileDetails extends Component {
 
     return (
       <div className="profile-container">
-        <img src={profileImageUrl} alt="profile" className="profile-logo" />
+        <img
+          src={profileImageUrl}
+          alt="profile"
+          className="profile-logo"
+        />
+
         <h1 className="name-heading">{name}</h1>
+
         <p className="bio">{shortBio}</p>
       </div>
     )
@@ -63,7 +73,12 @@ class ProfileDetails extends Component {
 
   renderLoadingView = () => (
     <div className="profile-loader-container" data-testid="loader">
-      <Loader type="ThreeDots" color="#ffffff" height="50" width="50" />
+      <Loader
+        type="ThreeDots"
+        color="#ffffff"
+        height="50"
+        width="50"
+      />
     </div>
   )
 
@@ -86,10 +101,13 @@ class ProfileDetails extends Component {
     switch (apiStatus) {
       case apiStatusConstants.success:
         return this.renderProfileDetails()
+
       case apiStatusConstants.inProgress:
         return this.renderLoadingView()
+
       case apiStatusConstants.failure:
         return this.renderFailureView()
+
       default:
         return null
     }
